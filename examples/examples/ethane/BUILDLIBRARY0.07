@@ -1,6 +1,0 @@
-#!/bin/bash
-
-
-###   mpirun  -np  1  /Users/bonnaud/Documents/prog_mbpro2/make_BUILDLIBRARY0.07/BUILDLIBRARY_AMD.exe
-    /home/e1849/Documents/prog_rde1849o02u/build_library/src/BUILDLIBRARY_AMD.exe
-
