@@ -1,0 +1,14 @@
+###################################################################################################
+##                            INPUT FILE TO BUILD THE LAMMPS LIBRARY                             ##
+###################################################################################################
+                                                                                                   
+                                                                                         10/19/2011
+                                                                                                   
+1     amber                                          ! NUMBER OF FILES TO READ; FILE FORMAT OF THE ATOMIC COORDINATES    
+C2H6.inpcrd   C2H6.prmtop   C2H6                     ! NAME OF THE FILE TO READ; Name of the lammps input file; Name of the output file 
+0     0.0000                                         !
+.                                                    ! Name of the directory where the files will be stored 
+build_frc    gaff-local.frc                          ! 
+                                                     !
+
+

@@ -1,0 +1,325 @@
+**********************************************************************
+**                  Build Files for LAMMPS Library                  **
+**********************************************************************
+ 
+v0.07                                                       04/05/2021
+ 
++ Set atom properties -----------------------------------------------+
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Read the input file -----------------------------------------------+
+|                                                                    |
+| The input file has been found in the directory                     |
+|                                                                    |
+| Number of files to read               :        1                   |
+|                                                                    |
+| File format of the atomic coordinates : amber                      |
+|                                                                    |
+| C2H6.inpcrd                                                        |
+|                                                                    |
+| C2H6.prmtop                                                        |
+|                                                                    |
+| C2H6                                                               |
+|                                                                    |
+| Path to the directory where lammps files will be stored            |
+|                                                                    |
+| .                                                                  |
+|                                                                    |
+|                                                                    |
+| The input file has been read                                       |
+|                                                                    |
++--------------------------------------------------------------------+
++ Read AMBER inpcrd file --------------------------------------------+
+|                                                                    |
+| C2H6.inpcrd                                                        |
+|                                                                    |
+| There is        8 atoms in the configuration                       |
+|                                                                    |
+| There is        4 lines to read                                    |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Read AMBER prmtop file --------------------------------------------+
+|                                                                    |
+| C2H6.prmtop                                                        |
+|                                                                    |
+| NATOM :        8                                                   |
+|                                                                    |
+| NRESIDUES :        1                                               |
+|                                                                    |
+| NTYPE_ATOM     :        2                                          |
+|                                                                    |
+| NTYPE_BOND     :        2                                          |
+|                                                                    |
+| NTYPE_ANGLE    :        2                                          |
+|                                                                    |
+| NTYPE_DIHEDRAL :        1                                          |
+|                                                                    |
+| AMBER_NATYP :        2                                             |
+|                                                                    |
+| AMBER_NBONH :        6                                             |
+|                                                                    |
+| AMBER_NBONA :        1                                             |
+|                                                                    |
+| AMBER_NTHETH :       12                                            |
+|                                                                    |
+| AMBER_NPHIH :       9                                              |
+|                                                                    |
+| AMBER_NLJ_INTER :        3                                         |
+|                                                                    |
+| Entering ATOM_NAME section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| The format is 20a4                                                 |
+|                                                                    |
+| Atom names were read                                               |
+|                                                                    |
+| Entering CHARGE section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        2 lines to read                                    |
+|                                                                    |
+| Charges were read                                                  |
+|                                                                    |
+| Entering ATOMIC_NUMBER section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Atomic numbers were read                                           |
+|                                                                    |
+| Entering MASS section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        2 lines to read                                    |
+|                                                                    |
+| Masses were read                                                   |
+|                                                                    |
+| Entering ATOM_TYPE_INDEX section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Atom types were read                                               |
+|                                                                    |
+| Entering NUMBER_EXCLUDED_ATOMS section >>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Number of excluded atoms were read                                 |
+|                                                                    |
+| Entering NBONDED_PARM_INDEX section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Nonbonded parameter index was read                                 |
+|                                                                    |
+| Entering RESIDUE_LABEL section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Residue labels were read                                           |
+|                                                                    |
+| Entering RESIDUE_POINTER section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Residue pointers were read                                         |
+|                                                                    |
+| Entering BOND_FORCE_CONSTANT section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Bond force constants were read                                     |
+|                                                                    |
+| Entering BOND_EQUIL_VALUE section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Bond equilibrium values were read                                  |
+|                                                                    |
+| Entering ANGLE_FORCE_CONSTANT section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Angle force constants were read                                    |
+|                                                                    |
+| Entering ANGLE_EQUIL_VALUE section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Angle equilibrium values were read                                 |
+|                                                                    |
+| Entering DIHEDRAL_FORCE_CONSTANT section >>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Dihedral force constants were read                                 |
+|                                                                    |
+| Entering DIHEDRAL_PERIODICITY section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Dihedral periodicities were read                                   |
+|                                                                    |
+| Entering DIHEDRAL_PHASE section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Dihedral phases were read                                          |
+|                                                                    |
+| Entering SCEE_SCALE_FACTOR section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| SCEE scale factors were read                                       |
+|                                                                    |
+| Entering SCNB_SCALE_FACTOR section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| SCNB scale factors were read                                       |
+|                                                                    |
+| Entering SOLTY section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| SOLTY values were read                                             |
+|                                                                    |
+| Entering LENNARD_JONES_ACOEF section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Lennard-Jones A coefficients were read                             |
+|                                                                    |
+| Entering LENNARD_JONES_BCOEF section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Lennard-Jones B coefficients were read                             |
+|                                                                    |
+| Entering BONDS_INC_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        2 lines to read                                    |
+|                                                                    |
+| Bonds containing hydrogen atoms were read                          |
+|                                                                    |
+| Entering BONDS_WITHOUT_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        1 lines to read                                    |
+|                                                                    |
+| Bonds that does not contain hydrogen atoms were read               |
+|                                                                    |
+| Entering ANGLES_INC_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        5 lines to read                                    |
+|                                                                    |
+| Angles containing hydrogen atoms were read                         |
+|                                                                    |
+| Entering ANGLES_WITHOUT_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        0 lines to read                                    |
+|                                                                    |
+| Angles that does not contain hydrogen atoms were read              |
+|                                                                    |
+| Entering DIHEDRALS_INC_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        5 lines to read                                    |
+|                                                                    |
+| Dihedrals containing hydrogen atoms were read                      |
+|                                                                    |
+| Entering DIHEDRALS_WITHOUT_HYDROGEN section >>>>>>>>>>>>>>>>>>>>>>>|
+|                                                                    |
+| There is        0 lines to read                                    |
+|                                                                    |
+| Dihedrals that does not contain hydrogen atoms were read           |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Build parameters (from AMBER to LAMMPS) ---------------------------+
+|                                                                    |
+| NATOM :        8                                                   |
+|                                                                    |
+| NBOND :        7                                                   |
+|                                                                    |
+| NANGLE :       12                                                  |
+|                                                                    |
+| NDIHEDRAL :        9                                               |
+|                                                                    |
+| NTYPE_ATOM :        2                                              |
+|                                                                    |
+| NTYPE_BOND :        2                                              |
+|                                                                    |
+| NTYPE_ANGLE :        2                                             |
+|                                                                    |
+| NTYPE_DIHEDRAL :        1                                          |
+|                                                                    |
+| SUM_CHARGES [e] :       0.0020                                     |
+|                                                                    |
+| IMAX_ATOM_TYPE | NTYPE_ATOM :        2       2                     |
+|                                                                    |
+| Type    1 is C                                                     |
+| Type    2 is H                                                     |
+|                                                                    |
+| Molar mass of type    1 is      12.0100                            |
+| Molar mass of type    2 is       1.0080                            |
+|                                                                    |
+| Nonbonded interactions were converted in the lammps format         |
+|                                                                    |
+| Bonds and bond types were converted in the lammps format           |
+|                                                                    |
+| Angles and angle types were converted in the lammps format         |
+|                                                                    |
+| Dihedrals and dihedral types were converted in the lammps format   |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Build templated config --------------------------------------------+
+|                                                                    |
+| NATOM_LIBRARY :        8                                           |
+|                                                                    |
+| IMAX_ATOMID :        8                                             |
+|                                                                    |
+| NBOND_LIBRARY :        7                                           |
+|                                                                    |
+| NANGLE_LIBRARY :       12                                          |
+|                                                                    |
+| NDIHEDRAL_LIBRARY :        9                                       |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Write LAMMPS template ---------------------------------------------+
+|                                                                    |
+| C2H6.template                                                      |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Write interatomic potentials template -----------------------------+
+|                                                                    |
+| C2H6.parameter                                                     |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Write additional information in a *.info file ---------------------+
+|                                                                    |
+| C2H6.info                                                          |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++ Move files to the library sub-directory ---------------------------+
+|                                                                    |
+| .                                                                  |
+|                                                                    |
+ | Output files will remain in the current directory
+|                                                                    |
+| C2H6.template                                                      |
+|                                                                    |
+| C2H6.parameter                                                     |
+|                                                                    |
+| C2H6.info                                                          |
+|                                                                    |
+|                                                                    |
++--------------------------------------------------------------------+
++--------------------------------------------------------------------+
+|                                                                    |
+|                           End of program                           |
+|                                                                    |
++--------------------------------------------------------------------+
