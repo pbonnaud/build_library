@@ -53,6 +53,8 @@ subroutine READ_INPUT(icanal)
 
     integer (kind=4) :: EOF;
 
+    integer (kind=4) :: iblank, icharact;
+
 !   ************************************************************************************************
 
     character (len=250) :: CHARLINE;
@@ -194,9 +196,57 @@ subroutine READ_INPUT(icanal)
 !!!!!!!   ### Name of the library where where the output files will be stored ############################
 !   ### Path to the directory (library) where output files will be stored ##########################
                                                                                          !
-    read(1,*) CHNAME_LIBRARY_SUBDIRECTORY;                                               !
+    read(1,'(a)') CHNAME_LIBRARY_SUBDIRECTORY;                                           !
+                                                                                         !
+!   write(icanal,*) TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                                   !
+                                                                                         !
+!   stop; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                                                                         !
+!   ### Extract the patch to the library directory from the raw data ###############################
+                                                                                         !
+    iblank = 0;                                                                          !
+                                                                                         !
+    icharact = 0;                                                                        !
+                                                                                         !
+    j = 1;                                                                               !
+                                                                                         !
+    do i = 1, 250;                                                                       !
+                                                                                         !
+!       write(icanal,*) CHNAME_LIBRARY_SUBDIRECTORY(i:i);                                !
+                                                                                         !
+        if ( CHNAME_LIBRARY_SUBDIRECTORY(i:i) == ' ' ) then;                             !
+                                                                                         !
+            if ( icharact == 1 ) then;                                                   !
+                                                                                         !
+                j = i;                                                                   !
+                                                                                         !
+                EXIT;                                                                    ! 
+                                                                                         !
+            else if ( icharact == 0 ) then;                                              !
+                                                                                         !
+                iblank = 1;                                                              !
+                                                                                         !
+                CYCLE;                                                                   !
+                                                                                         !
+            end if                                                                       !
+                                                                                         !
+        else                                                                             !
+                                                                                         !
+           icharact = 1;                                                                 !
+                                                                                         !
+        end if                                                                           !
+                                                                                         !
+    end do                                                                               !
+                                                                                         !
+    CHNAME_LIBRARY_SUBDIRECTORY = TRIM(CHNAME_LIBRARY_SUBDIRECTORY(1:j));                !
+                                                                                         !
+    write(icanal,*) TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                                   !
+                                                                                         !
+!   stop; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                                                                          !
     IOSEF1 = 70 - 2 - 1 - LEN_TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                         !
+                                                                                         !
+    if ( IOSEF1 < 0 ) IOSEF1 = 1;                                                        !
                                                                                          !
     write(icanal,'(a70)') '| Path to the directory where lammps files will be stored'// &!
                           REPEAT(' ',12)//'|';                                           !
