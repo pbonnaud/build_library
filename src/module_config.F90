@@ -128,10 +128,11 @@ module module_config
 
 !   ************************************************************************************************
 
-    character (len=250) :: CH_ATOM_STYLE,     &
-                           CH_BOND_STYLE,     &
-                           CH_ANGLE_STYLE,    &
-                           CH_DIHEDRAL_STYLE, &
+    character (len=250) :: CH_ATOM_STYLE,           &
+                           CH_BOND_STYLE,           &
+                           CH_ANGLE_STYLE,          &
+                           CH_DIHEDRAL_STYLE,       &
+                           CH_IMPROPER_STYLE,       &
                            POTENTIAL_CLASS2_CHTYPE;
 
     character (len=20), allocatable, dimension(:) :: ATOM_LABEL;

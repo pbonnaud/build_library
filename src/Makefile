@@ -15,10 +15,10 @@ OBJS = BUILDLIBRARY.o BUILD_PARAMETER_AMBER_TO_LAMMPS.o BUILD_TEMPLATED_CONFIG.o
 MAKE_PROGRAM_TITLE.o MAKE_ROUTINE_TITLE.o MOVE_TO_LIBRARY_DIRECTORY.o \
 READ_AMBER_INPCRD.o READ_AMBER_PRMTOP.o READ_INPUT.o \
 READ_INPUT_LAMMPS.o READ_LAMMPS_CONFIG.o SET_ATOM_PROPERTIES.o \
-WRITE_ERROR_MESSAGE.o WRITE_INTERATOMIC_POTENTIALS_TEMPLATE.o WRITE_LAMMPS_INFO.o \
-WRITE_LAMMPS_TEMPLATE.o module_config.o module_data_in.o \
-module_frc_arrays.o module_library.o module_osef.o \
-module_physical_constants.o module_size_arrays.o
+SET_FORCE_FIELD_PROPERTIES.o WRITE_ERROR_MESSAGE.o WRITE_INTERATOMIC_POTENTIALS_TEMPLATE.o \
+WRITE_LAMMPS_INFO.o WRITE_LAMMPS_TEMPLATE.o module_config.o \
+module_data_in.o module_frc_arrays.o module_library.o \
+module_osef.o module_physical_constants.o module_size_arrays.o
                                                                       
 #=====================================================================
                                                                       

@@ -42,6 +42,8 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
     use module_library;
 
+    use module_osef;
+
 !   ************************************************************************************************
 
     implicit none;
@@ -82,13 +84,13 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
     integer (kind=4) :: EOF, EOF2;
 
-    integer (kind=4) :: IOSEF1, IOSEF2, IOSEF3, IOSEF4, IOSEF5;
+!   integer (kind=4) :: IOSEF1, IOSEF2, IOSEF3, IOSEF4, IOSEF5;
 
-    real (kind=8) :: ROSEF1, ROSEF2, ROSEF3;
+!   real (kind=8) :: ROSEF1, ROSEF2, ROSEF3;
 
     real (kind=8), dimension(1:4) :: TAB_ROSEF; 
 
-    character (len=10) :: CHOSEF1, CHOSEF2, CHOSEF3, CHOSEF4, CHOSEF5, CHOSEF6;
+!   character (len=10) :: CHOSEF1, CHOSEF2, CHOSEF3, CHOSEF4, CHOSEF5, CHOSEF6;
 
     character (len=250) :: CHAIN_LENGTH;
 
@@ -124,18 +126,18 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
                                                                                          !
-!   ### Initialization of variables and arrays for readin the configuration ########################
+!   ### Initialization of variables and arrays before reading the configuration ####################
                                                                                          !
-    NATOM     = 0;
-
-    NBOND     = 0;
-
-    NANGLE    = 0;
-
-    NDIHEDRAL = 0;
-
-    NIMPROPER = 0;
-
+    NATOM     = 0;                                                                       !
+                                                                                         !
+    NBOND     = 0;                                                                       !
+                                                                                         !
+    NANGLE    = 0;                                                                       !
+                                                                                         !
+    NDIHEDRAL = 0;                                                                       !
+                                                                                         !
+    NIMPROPER = 0;                                                                       !
+                                                                                         !
     NTYPE_ATOM     = 0;
 
     NTYPE_BOND     = 0;
@@ -162,7 +164,7 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
     FLAG_SORT_MOLEC = 0;
 
-    IPOTENTIAL_CLASS2 = 0;
+!   IPOTENTIAL_CLASS2 = 0;
 
     ibonds     = 0;
 
@@ -230,6 +232,8 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
             allocate(CONFIG_PCFF_TYPE(1:NATOM));
 
+!           ### Initialization of arrays ###########################################################
+
             CONFIG_QI(1:NATOM)         = 0.0d0;
 
             CONFIG_RI(1:3,1:NATOM)     = 0.0d0;
@@ -252,13 +256,13 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
                                                                                          !
             read(CHAIN_LENGTH,*) NTYPE_ATOM;                                             !
                                                                                          !
-            write(icanal,'(a19,i8,a43)') '| NTYPE_ATOM     : ', &
-                                         NTYPE_ATOM,            &
-                                         REPEAT(' ',42)//'|';
-
-            write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';
-
-            allocate(ATOM_LABEL(1:NTYPE_ATOM));
+            write(icanal,'(a19,i8,a43)') '| NTYPE_ATOM     : ', &                        !
+                                         NTYPE_ATOM,            &                        !
+                                         REPEAT(' ',42)//'|';                            !
+                                                                                         !
+            write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                              !
+                                                                                         !
+            allocate(ATOM_LABEL(1:NTYPE_ATOM));                                          !
 
             allocate(ATOM_MASSE(1:NTYPE_ATOM));
 
@@ -270,12 +274,12 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
             POTENTIAL_CLASS2(1:2,1:NTYPE_ATOM) = 0.0d0;
 
-            POTENTIAL_CLASS2_CHTYPE = 'XXXX';                                            !
+!           POTENTIAL_CLASS2_CHTYPE = 'XXXX';                                            !
                                                                                          !
 !           stop; !//////////////////////////////////////////////////////////////////////!
-
-        else if ( INDEX(CHAIN_LENGTH,'bonds') > 0 ) then;
-
+                                                                                         !
+        else if ( INDEX(CHAIN_LENGTH,'bonds') > 0 ) then;                                !
+                                                                                         !
             read(CHAIN_LENGTH,*) NBOND;
 
             write(icanal,'(a19,i8,a43)') '| NBOND          : ', &
@@ -424,10 +428,12 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
         else if ( INDEX(CHAIN_LENGTH,'impropers') > 0 ) then;
 
-            read(CHAIN_LENGTH,*) NIMPROPER;
-
-            write(icanal,'(a19,i8,a43)') '| NIMPROPER      : ', &
-                                         NIMPROPER,             &
+            if ( TRIM(CH_IMPROPER_STYLE) == 'none' ) CYCLE;                              !
+                                                                                         !
+            read(CHAIN_LENGTH,*) NIMPROPER;                                              !
+                                                                                         !
+            write(icanal,'(a19,i8,a43)') '| NIMPROPER      : ', &                        !
+                                         NIMPROPER,             &                        !
                                          REPEAT(' ',42)//'|';
 
             write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';
@@ -440,10 +446,12 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
             IMPROPER_TYPE(1:NIMPROPER)       = 0;
 
-!           stop;
-
-        else if ( INDEX(CHAIN_LENGTH,'improper types') > 0 ) then;
-
+!           stop; !//////////////////////////////////////////////////////////////////////!
+                                                                                         !
+        else if ( INDEX(CHAIN_LENGTH,'improper types') > 0 ) then;                       !
+                                                                                         !
+            if ( TRIM(CH_IMPROPER_STYLE) == 'none' ) CYCLE;                              !
+                                                                                         !
             read(CHAIN_LENGTH,*) NTYPE_IMPROPER;
 
             write(icanal,'(a19,i8,a43)') '| NTYPE_IMPROPER : ', &
@@ -460,7 +468,7 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
             ANGLEANGLE_COEFFS(1:6,1:NTYPE_IMPROPER) = 0.0d0;
 
-!           stop;
+!           stop; !//////////////////////////////////////////////////////////////////////!
 
         else if ( INDEX(CHAIN_LENGTH,'xlo xhi') > 0 ) then;
 
@@ -593,23 +601,17 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 !       else if ( INDEX(CHAIN_LENGTH,'Bond Coeffs # class2') > 0 ) then;
         else if ( INDEX(CHAIN_LENGTH,'Bond Coeffs') > 0 ) then;                          !
                                                                                          !
+!           ### Define the number of bond parameters to read in the lammps configuration ###########
+                                                                                         !
             NPARAM_BONDS = 1;                                                            !
                                                                                          !
             if ( TRIM(CH_BOND_STYLE) == 'class2' ) NPARAM_BONDS = 4;                     !
                                                                                          !
             if ( TRIM(CH_BOND_STYLE) == 'harmonic' ) NPARAM_BONDS = 2;                   !
-
-!           if ( INDEX(CHAIN_LENGTH,'# class2') > 0 ) then;                              !
                                                                                          !
-!               NPARAM_BONDS = 4                                                         !
+!           ### Read the bond parameters in the lammps configuration ###############################
                                                                                          !
-!           else                                                                         !
-                                                                                         !
-!               NPARAM_BONDS = 2                                                         !
-                                                                                         !
-!           end if
-
-            read(2,*);
+            read(2,*);                                                                   !
 
             do i = 1, NTYPE_BOND;
 
@@ -631,6 +633,9 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
             NPARAM_ANGLES = 2;
 
             if ( INDEX(CHAIN_LENGTH,'# class2') > 0 ) NPARAM_ANGLES = 4; 
+
+            if ( TRIM(CH_ANGLE_STYLE) == 'harmonic' ) NPARAM_ANGLES = 2;
+
 
             read(2,*);
 
@@ -682,11 +687,13 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
         else if ( INDEX(CHAIN_LENGTH,'Dihedral Coeffs') > 0 ) then;
 
-            NPARAM_DIHEDRALS = 6;
-
-!           if ( INDEX(CHAIN_LENGTH,'# opls') > 0 ) NPARAM_DIHEDRALS = 4;
-
-            if ( TRIM(CH_DIHEDRAL_STYLE) == 'opls' ) NPARAM_DIHEDRALS = 4;
+!           ### Define the number of dihedral parameters to read in the lammps configuration #######
+                                                                                         !
+            NPARAM_DIHEDRALS = 6;                                                        !
+                                                                                         !
+            if ( TRIM(CH_DIHEDRAL_STYLE) == 'opls' ) NPARAM_DIHEDRALS = 4;               !
+                                                                                         !
+!           ### Read the dihedral parameters in the lammps configuration ###########################
 
             read(2,*);
 
@@ -902,28 +909,6 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
                 read(CHAIN_LENGTH,*) IOSEF1, BOND_TYPE(IOSEF1), BOND_ATOMID(1:2,IOSEF1);
 
-!               if ( INDEX(CHAIN_LENGTH,'#') > 0 ) then;
-
-!                   read(CHAIN_LENGTH,*) IOSEF2, IOSEF3, IOSEF4, IOSEF5, CHOSEF1, BOND_PCFF_TYPE(1:2,IOSEF1) !CHOSEF2, CHOSEF3;
-
-!                   do j = 1, NATOM;
-
-!                       if ( CONFIG_ATOMID(j) == BOND_ATOMID(1,IOSEF1) ) then;
-
-!                           CONFIG_PCFF_TYPE(j) = TRIM(BOND_PCFF_TYPE(1,IOSEF1));
-
-!                       end if
-
-!                       if ( CONFIG_ATOMID(j) == BOND_ATOMID(2,IOSEF1) ) then;
-
-!                           CONFIG_PCFF_TYPE(j) = TRIM(BOND_PCFF_TYPE(2,IOSEF1));
-
-!                       end if
-
-!                   end do
-
-!               end if
-
             end do
 
             ibonds = 1;
@@ -966,8 +951,12 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
 
 !           stop; !//////////////////////////////////////////////////////////////////////!
                                                                                          !
-         else if ( INDEX(CHAIN_LENGTH,'Impropers') > 0 ) then;                           !
+        else if ( INDEX(CHAIN_LENGTH,'Impropers') > 0 ) then;                            !
                                                                                          ! 
+            if ( TRIM(CH_IMPROPER_STYLE) == 'none' ) CYCLE;                              !
+                                                                                         !
+!           ### Read atom ids for improper angles ##################################################
+                                                                                         !
             IOSEF2 = 0;
 
             do i = 1, NIMPROPER;
@@ -1366,10 +1355,11 @@ subroutine READ_LAMMPS_CONFIG(icanal,CHEXT,                      &
     end if
 
 !   ### Closing the routine ########################################################################
-
-    write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';
-    write(icanal,'(a70)') '+'//REPEAT('-',68)//'+';
-
+                                                                                         !
+    write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                      !
+                                                                                         !
+    write(icanal,'(a70)') '+'//REPEAT('-',68)//'+';                                      !
+                                                                                         !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
-
+                                                                                         !
 end subroutine READ_LAMMPS_CONFIG

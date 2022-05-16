@@ -17,15 +17,14 @@
 !   //                                                                                            //
 !   ////////////////////////////////////////////////////////////////////////////////////////////////
 
-subroutine READ_INPUT_LAMMPS(icanal,           &
-                             CHEXT)
+subroutine READ_INPUT_LAMMPS(icanal,CHEXT)
 
 !   ************************************************************************************************
-!   **                                 READ LAMMPS FILES                                          **
+!   **                                 Read the input file for lammps                             **
 !   ************************************************************************************************
 !   **                                                                                            **
-!   ** icanal        : CANAL ON WHICH THE OUTPUT FILE IS WRITEN                                   **
-!   ** CHEXT         : NAME OF THE LAMMPS CONFIGURATION                                           **
+!   ** icanal : Canal on which the output file is written                                         **
+!   ** CHEXT  : Name of the lammps input file                                                     **
 !   **                                                                                            **
 !   ************************************************************************************************
 
@@ -261,6 +260,7 @@ subroutine READ_INPUT_LAMMPS(icanal,           &
 !   ### Closing the routine ########################################################################
                                                                                          !
     write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                      !
+                                                                                         !
     write(icanal,'(a70)') '+'//REPEAT('-',68)//'+';                                      !
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!

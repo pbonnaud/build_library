@@ -20,7 +20,7 @@
 subroutine READ_INPUT(icanal)
 
 !   ************************************************************************************************
-!   **                                  READ THE INPUT FILE                                       **
+!   **                     Read the input file of the build_library program                       **
 !   ************************************************************************************************
 !   **                                                                                            **
 !   ** icanal : Canal on which output data are written                                            **
@@ -114,6 +114,8 @@ subroutine READ_INPUT(icanal)
                                                                                          !
     end do                                                                               !
                                                                                          !
+!   ### Read the number of files to read and the file format #######################################
+                                                                                         !
     read(1,*) NFILE_LIBRARY, CHFILE_FORMAT;                                              !
                                                                                          !
     write(icanal,'(a42,i8,a20)') '| Number of files to read               : ', &         !
@@ -140,15 +142,33 @@ subroutine READ_INPUT(icanal)
                                                                                          !
     allocate(CHNAME_OUTPUT_FILE_LIBRARY(1:NFILE_LIBRARY));                               !
                                                                                          !
+!   ### Initialization of arrays  containing names of input and output files #######################
+                                                                                         !
+    CHNAME_FILE_LIBRARY(1:NFILE_LIBRARY) = 'XXX';                                        !
+                                                                                         !
+    CHNAME_LAMMPS_INPUT_LIBRARY(1:NFILE_LIBRARY) = 'XXX';                                !
+                                                                                         !
+    CHNAME_OUTPUT_FILE_LIBRARY(1:NFILE_LIBRARY) = 'XXX';                                 !
+                                                                                         !
 !   ### Read names of files to read and the name of output files ###################################
                                                                                          !
     do i = 1, NFILE_LIBRARY;                                                             ! 
                                                                                          !
-        read(1,*) CHNAME_FILE_LIBRARY(i),         &                                      !
-                  CHNAME_LAMMPS_INPUT_LIBRARY(i), &                                      !
-                  CHNAME_OUTPUT_FILE_LIBRARY(i);                                         !
+        if ( TRIM(CHFILE_FORMAT) == 'lammps-ligpargen' ) then;                           !
+                                                                                         !
+            read(1,*) CHNAME_FILE_LIBRARY(i), CHNAME_OUTPUT_FILE_LIBRARY(i);             !
+                                                                                         !
+        else                                                                             !
+                                                                                         !
+            read(1,*) CHNAME_FILE_LIBRARY(i),         &                                  !
+                      CHNAME_LAMMPS_INPUT_LIBRARY(i), &                                  !
+                      CHNAME_OUTPUT_FILE_LIBRARY(i);                                     !
+                                                                                         !
+        end if                                                                           !
                                                                                          !
     end do                                                                               !
+                                                                                         !
+!   ### Write names of files to read and the name of output files ##################################
                                                                                          !
     do i = 1, NFILE_LIBRARY;                                                             !
                                                                                          !
@@ -159,12 +179,16 @@ subroutine READ_INPUT(icanal)
                                                                                          !
         write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                  !
                                                                                          !
-        IOSEF1 = 70 - 2 - 1 - LEN_TRIM(CHNAME_LAMMPS_INPUT_LIBRARY(i));                  !
+        if ( TRIM(CHFILE_FORMAT) /= 'lammps-ligpargen' ) then;                           !
                                                                                          !
-        write(icanal,'(a70)') '| '//TRIM(CHNAME_LAMMPS_INPUT_LIBRARY(i))// &             !
-                              REPEAT(' ',IOSEF1)//'|';                                   !
+            IOSEF1 = 70 - 2 - 1 - LEN_TRIM(CHNAME_LAMMPS_INPUT_LIBRARY(i));              !
                                                                                          !
-        write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                  !
+            write(icanal,'(a70)') '| '//TRIM(CHNAME_LAMMPS_INPUT_LIBRARY(i))// &         !
+                                  REPEAT(' ',IOSEF1)//'|';                               !
+                                                                                         !
+            write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                              !
+                                                                                         !
+        end if                                                                           !
                                                                                          !
         IOSEF1 = 70 - 2 - 1 - LEN_TRIM(CHNAME_OUTPUT_FILE_LIBRARY(i));                   !
                                                                                          !
@@ -193,7 +217,6 @@ subroutine READ_INPUT(icanal)
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
                                                                                          !
-!!!!!!!   ### Name of the library where where the output files will be stored ############################
 !   ### Path to the directory (library) where output files will be stored ##########################
                                                                                          !
     read(1,'(a)') CHNAME_LIBRARY_SUBDIRECTORY;                                           !
@@ -202,7 +225,7 @@ subroutine READ_INPUT(icanal)
                                                                                          !
 !   stop; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                                                                          !
-!   ### Extract the patch to the library directory from the raw data ###############################
+!   ### Extract the path to the library directory from the raw data ################################
                                                                                          !
     iblank = 0;                                                                          !
                                                                                          !
@@ -224,7 +247,7 @@ subroutine READ_INPUT(icanal)
                                                                                          !
             else if ( icharact == 0 ) then;                                              !
                                                                                          !
-                iblank = 1;                                                              !
+                iblank = i;                                                              !
                                                                                          !
                 CYCLE;                                                                   !
                                                                                          !
@@ -238,18 +261,23 @@ subroutine READ_INPUT(icanal)
                                                                                          !
     end do                                                                               !
                                                                                          !
-    CHNAME_LIBRARY_SUBDIRECTORY = TRIM(CHNAME_LIBRARY_SUBDIRECTORY(1:j));                !
+    iblank = iblank + 1;                                                                 !
                                                                                          !
-    write(icanal,*) TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                                   !
+    CHNAME_LIBRARY_SUBDIRECTORY = TRIM(CHNAME_LIBRARY_SUBDIRECTORY(iblank:j));           !
+                                                                                         !
+!   write(icanal,*) TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                                   !
                                                                                          !
 !   stop; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                                                                         !
+!   ### Write the path to the directory where lammps files will be stored ##########################
                                                                                          !
     IOSEF1 = 70 - 2 - 1 - LEN_TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                         !
                                                                                          !
     if ( IOSEF1 < 0 ) IOSEF1 = 1;                                                        !
                                                                                          !
-    write(icanal,'(a70)') '| Path to the directory where lammps files will be stored'// &!
-                          REPEAT(' ',12)//'|';                                           !
+    write(icanal,'(a70)') '| Path to the directory where '// &                           !
+                          'lammps files will be stored : '// &                           !
+                          REPEAT(' ',9)//'|';                                            !
                                                                                          !
     write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                      !
                                                                                          !

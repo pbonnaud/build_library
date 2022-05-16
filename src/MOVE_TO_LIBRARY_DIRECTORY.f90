@@ -80,10 +80,14 @@ subroutine MOVE_TO_LIBRARY_DIRECTORY(icanal,CHEXT1,CHEXT2,CHEXT3)
                                                                                          !
     IOSEF1 = 70 - 3 - LEN_TRIM(CHNAME_LIBRARY_SUBDIRECTORY);                             !
                                                                                          !
+    if ( IOSEF1 < 0 ) IOSEF1 = 1;                                                        !
+                                                                                         !
     write(icanal,'(a70)') '| '//TRIM(CHNAME_LIBRARY_SUBDIRECTORY)// &                    !
                           REPEAT(' ',IOSEF1)//'|';                                       !
                                                                                          !
     write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                      !
+                                                                                         !
+!   stop; !//////////////////////////////////////////////////////////////////////////////!
                                                                                          !
 !   ### Initialization of the flag that tells the program to move generated files ##################
                                                                                          !
@@ -101,30 +105,48 @@ subroutine MOVE_TO_LIBRARY_DIRECTORY(icanal,CHEXT1,CHEXT2,CHEXT3)
                                                                                          !
         ilocal_move = 1;                                                                 !
                                                                                          !
+!       ### Write a small script that check the presence of the designated directory ###############
+                                                                                         !
         open(22,file='Tempo');                                                           !
                                                                                          !
         write(22,'(a11)') '#!/bin/bash';                                                 !
                                                                                          !
         write(22,*);                                                                     !
                                                                                          !
-!       write(22,*) 'if [ -d "../../'//                 &                                    !
-!                   TRIM(CHNAME_LIBRARY_SUBDIRECTORY)// &                                    !
-!                   '" ]; then touch EXIST; fi';                                             !
+!       CHOSEF1 = 'PATH_DIR="'//TRIM(CHNAME_LIBRARY_SUBDIRECTORY)//'"';                  !
                                                                                          !
-        write(22,*) 'if [ -d "'//                       &                                !
-                    TRIM(CHNAME_LIBRARY_SUBDIRECTORY)// &                                !
-                    '" ]; then touch EXIST; fi';                                         !
+        write(22,*) 'PATH_DIR="'//TRIM(CHNAME_LIBRARY_SUBDIRECTORY)//'"';                !
+                                                                                         !
+        write(22,*);                                                                     !
+                                                                                         !
+                                                                                         !
+!       write(22,*) 'if [ -d "'//                       &                                !
+!                   TRIM(CHNAME_LIBRARY_SUBDIRECTORY)// &                                !
+!                   '" ]; then touch EXIST; fi';                                         !
+
+        write(22,*) 'if [ -d $PATH_DIR ]; then touch EXIST; fi';                         !
+                                                                                         !
         close(22);                                                                       !
+                                                                                         !
+!       stop; !//////////////////////////////////////////////////////////////////////////!
+                                                                                         !
+!       ### Set executable properties to the script an run it ######################################
                                                                                          !
         call system('chmod +x Tempo');                                                   !
                                                                                          !
         call system('./Tempo');                                                          !
+                                                                                         !
+!       ### Check for an output generated by the script ############################################
                                                                                          !
         inquire(FILE='EXIST',EXIST=PROBE1);                                              !
                                                                                          !
         write(icanal,'(a11,L1,a58)') '| PROBE1 : ', PROBE1, REPEAT(' ',57)//'|';         !
                                                                                          !
         write(icanal,'(a70)') '|'//REPEAT(' ',68)//'|';                                  !
+                                                                                         !
+!       stop; !//////////////////////////////////////////////////////////////////////////!
+                                                                                         !
+!       ### Remove the script and the generated output (cleaning) ##################################
                                                                                          !
         call system('rm -f EXIST Tempo');                                                !
                                                                                          !

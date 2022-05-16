@@ -53,12 +53,6 @@ subroutine WRITE_INTERATOMIC_POTENTIALS_TEMPLATE(icanal,CHEXT)
 
     integer (kind=4) :: EOF, EOF2;
 
-!   integer (kind=4) :: IOSEF1, IOSEF2, IOSEF3, IOSEF4;
-
-!   real (kind=8) :: ROSEF1, ROSEF2;
-
-!   character (len=250) :: CHOSEF1, CHOSEF2, CHOSEF3;
-
     character (len=250) :: CHARLINE, CHARLINE2;
 
     integer (kind=4) :: ILENGTH_TITLE;
