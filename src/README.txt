@@ -1,8 +1,9 @@
+ 0.08    * Cleaning up the main code by removing commented commands
+
  0.07    * Modify the program to generate a frc file containing the data from the   X 
            gaff force field
-         * Modification of the way to read and to localize the directory where to 
+         * Modification of the way to read and to localize the directory where to   X 
            send the library files 
-
 
  0.06    * Modify the program for readjusting charges of the library molecule       X
          * Correct a bug in the reading of charges in the prmtop file from amber

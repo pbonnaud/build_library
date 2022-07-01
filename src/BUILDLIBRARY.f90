@@ -88,27 +88,24 @@ program BUILDLIBRARY
                                                                                          !
     CHTITLE        = 'Build Files for LAMMPS Library';                                   !
                                                                                          !
-    CHPRGM_VERSION = 'v0.07';                                                            !
+    CHPRGM_VERSION = 'v0.08';                                                            !
                                                                                          !
-    CHDATE         = '04/05/2021';                                                       !
+    CHDATE         = '01/07/2022';                                                       !
                                                                                          !
     ILENGTH_TITLE = LEN_TRIM(CHTITLE);                                                   !
                                                                                          !
-!   call MAKE_PROGRAM_TITLE(99,70,ILENGTH_TITLE,TRIM(CHTITLE),CHPRGM_VERSION,CHDATE);    !
     call MAKE_PROGRAM_TITLE(icanal,70,ILENGTH_TITLE,TRIM(CHTITLE),CHPRGM_VERSION,CHDATE);!
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
                                                                                          !
 !   ### Set atom properties as found in the Mendeleiev table #######################################
                                                                                          !
-!   call SET_ATOM_PROPERTIES(99);                                                        !
     call SET_ATOM_PROPERTIES(icanal);                                                    !
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
                                                                                          !
 !   ### Read the input file of the current program #################################################
                                                                                          !
-!   call READ_INPUT(99);                                                                 !
     call READ_INPUT(icanal);                                                             !
                                                                                          !
 !   stop; !//////////////////////////////////////////////////////////////////////////////!
@@ -121,14 +118,12 @@ program BUILDLIBRARY
                                                                                          ! 
 !           ### Read the input file for lammps #####################################################
                                                                                          !
-!           call READ_INPUT_LAMMPS(99,CHNAME_LAMMPS_INPUT_LIBRARY(i));                   !
             call READ_INPUT_LAMMPS(icanal,CHNAME_LAMMPS_INPUT_LIBRARY(i));               !
                                                                                          !
 !           stop; !//////////////////////////////////////////////////////////////////////!
                                                                                          !
 !           ### Read the configuration in the lammps format ########################################
                                                                                          !
-!           call READ_LAMMPS_CONFIG(99,                      &                           !
             call READ_LAMMPS_CONFIG(icanal,                  &                           !
                                     CHNAME_FILE_LIBRARY(i),  &                           !
                                     MATA(1:6),               &                           !
@@ -183,7 +178,6 @@ program BUILDLIBRARY
                                                                                          !
         end if                                                                           !
                                                                                          !
-!       call BUILD_TEMPLATED_CONFIG(99);                                                 !
         call BUILD_TEMPLATED_CONFIG(icanal);                                             !
                                                                                          !
 !       stop; !//////////////////////////////////////////////////////////////////////////!
@@ -192,7 +186,6 @@ program BUILDLIBRARY
                                                                                          !
         CHEXT1 = TRIM(CHNAME_OUTPUT_FILE_LIBRARY(i))//'.template';                       !
                                                                                          !
-!       call WRITE_LAMMPS_TEMPLATE(99,CHEXT1);                                           !
         call WRITE_LAMMPS_TEMPLATE(icanal,CHEXT1);                                       !
                                                                                          !
 !       stop; !//////////////////////////////////////////////////////////////////////////!
@@ -201,7 +194,6 @@ program BUILDLIBRARY
                                                                                          !
         CHEXT2 = TRIM(CHNAME_OUTPUT_FILE_LIBRARY(i))//'.parameter';                      !
                                                                                          !
-!       call WRITE_INTERATOMIC_POTENTIALS_TEMPLATE(99,CHEXT2);                           !
         call WRITE_INTERATOMIC_POTENTIALS_TEMPLATE(icanal,CHEXT2);                       !
                                                                                          !
 !       stop; !//////////////////////////////////////////////////////////////////////////!
@@ -217,7 +209,6 @@ program BUILDLIBRARY
                                                                                          !
 !       ### Move files to the directory where they will be stored in the library ###################
                                                                                          !
-!       call MOVE_TO_LIBRARY_DIRECTORY(99,CHEXT1,CHEXT2,CHEXT3);                         ! 
         call MOVE_TO_LIBRARY_DIRECTORY(icanal,CHEXT1,CHEXT2,CHEXT3);                     ! 
                                                                                          !
 !       stop; !//////////////////////////////////////////////////////////////////////////!

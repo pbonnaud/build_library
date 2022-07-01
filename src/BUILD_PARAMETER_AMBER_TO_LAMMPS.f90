@@ -20,7 +20,7 @@
 subroutine BUILD_PARAMETER_AMBER_TO_LAMMPS(icanal)
 
 !   ************************************************************************************************
-!   **                                 READ LAMMPS FILES                                          **
+!   **                      Build force field parameters for lammps (AMBER)                       **
 !   ************************************************************************************************
 !   **                                                                                            **
 !   ** icanal : CANAL ON WHICH THE OUTPUT FILE IS WRITEN                                          **
@@ -77,13 +77,7 @@ subroutine BUILD_PARAMETER_AMBER_TO_LAMMPS(icanal)
 
 !   ************************************************************************************************
 
-!   integer (kind=4) :: IOSEF1, IOSEF2, IOSEF3, IOSEF4, IOSEF5;
-
-!   real (kind=8) :: ROSEF1, ROSEF2, ROSEF3;
-
     real (kind=8), dimension(1:4) :: TAB_ROSEF; 
-
-!   character (len=10) :: CHOSEF1, CHOSEF2, CHOSEF3, CHOSEF4, CHOSEF5, CHOSEF6;
 
     character (len=250) :: CHAIN_LENGTH;
 
